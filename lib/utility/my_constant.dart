@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 class MyConstant {
   //Field
+
+  static String routeAuthen = '/authen';
+  static String routeOfficer = '/officer';
+  static String routeBoss = '/boss';
+
   static String appName = 'Ung Officer';
   static Color dark = const Color.fromARGB(255, 3, 26, 68);
   static Color primary = const Color.fromARGB(255, 16, 101, 158);
@@ -12,8 +17,7 @@ class MyConstant {
   BoxDecoration imageBox() {
     return const BoxDecoration(
       image: DecorationImage(
-        image: AssetImage('images/bg.jpg'),fit: BoxFit.cover
-      ),
+          image: AssetImage('images/bg.jpg'), fit: BoxFit.cover),
     );
   }
 
@@ -32,7 +36,7 @@ class MyConstant {
   }
 
   BoxDecoration whiteBox() {
-    return  BoxDecoration(
+    return BoxDecoration(
         color: Colors.white.withOpacity(0.75),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(100),
@@ -76,7 +80,7 @@ class MyConstant {
     );
   }
 
-   TextStyle h3ButtonStyle() {
+  TextStyle h3ButtonStyle() {
     return const TextStyle(
       fontSize: 16,
       color: Colors.white,
