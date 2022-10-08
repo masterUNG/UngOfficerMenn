@@ -8,16 +8,18 @@ class WidgetListtile extends StatelessWidget {
   final Widget leadWidget;
   final String title;
   final String subTitle;
+  final Function()? tapFunc;
   const WidgetListtile({
     Key? key,
     required this.leadWidget,
     required this.title,
     required this.subTitle,
+    this.tapFunc,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return ListTile(onTap: tapFunc,
       leading: leadWidget,
       title: WidgetText(
         text: title,

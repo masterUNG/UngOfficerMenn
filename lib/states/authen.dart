@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ungofficer/models/user_model.dart';
 import 'package:ungofficer/utility/my_constant.dart';
 import 'package:ungofficer/utility/my_dialog.dart';
@@ -149,7 +150,7 @@ class _AuthenState extends State<Authen> {
     String urlAPI =
         'https://www.androidthai.in.th/fluttertraining/getUserWhereUserUng.php?isAdd=true&user=$user';
 
-    await Dio().get(urlAPI).then((value) {
+    await Dio().get(urlAPI).then((value) async {
       print('value = $value');
 
       if (value.toString() == 'null') {
@@ -169,20 +170,32 @@ class _AuthenState extends State<Authen> {
             String type = model.type;
             print('type = $type');
 
-            switch (type) {
-              case 'boss':
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyConstant.routeBoss, (route) => false);
-                break;
-              case 'officer':
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyConstant.routeOfficer, (route) => false);
-                break;
-              default:
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyConstant.routeAuthen, (route) => false);
-                break;
-            }
+            var datas = <String>[];
+            datas.add(model.id);
+            datas.add(model.type);
+            datas.add(model.name);
+            datas.add(model.user);
+            datas.add(model.password);
+            print('datas = $datas');
+
+            SharedPreferences preferences =
+                await SharedPreferences.getInstance();
+            preferences.setStringList('data', datas).then((value) {
+              switch (type) {
+                case 'boss':
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, MyConstant.routeBoss, (route) => false);
+                  break;
+                case 'officer':
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, MyConstant.routeOfficer, (route) => false);
+                  break;
+                default:
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, MyConstant.routeAuthen, (route) => false);
+                  break;
+              }
+            });
           } else {
             MyDialog(context: context).normalDialog(
                 title: 'Password False ?',
