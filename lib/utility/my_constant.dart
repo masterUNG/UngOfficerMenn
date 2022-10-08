@@ -53,9 +53,9 @@ class MyConstant {
     );
   }
 
-  TextStyle h2Style() {
+  TextStyle h2Style({double? size}) {
     return TextStyle(
-      fontSize: 24,
+      fontSize: size ?? 24,
       color: dark,
       fontWeight: FontWeight.w700,
       fontFamily: 'Mali',

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:ungofficer/bodys/list_job.dart';
 import 'package:ungofficer/bodys/list_officer.dart';
 import 'package:ungofficer/bodys/news.dart';
 import 'package:ungofficer/utility/my_constant.dart';
@@ -22,6 +23,7 @@ class MainBoss extends StatefulWidget {
 class _MainBossState extends State<MainBoss> {
   var bodys = <Widget>[];
   var titles = <String>[
+    'List Job',
     'List Officer',
     'News',
   ];
@@ -39,6 +41,7 @@ class _MainBossState extends State<MainBoss> {
   Future<void> findUserLogin() async {
     datas = await MyService().findDatas();
 
+    bodys.add(const ListJob());
     bodys.add(const ListOfficer());
     bodys.add(News(nameLogin: datas[2]));
 
@@ -67,19 +70,49 @@ class _MainBossState extends State<MainBoss> {
                   type: 'Boss',
                 ),
                 WidgetListtile(
+                    tapFunc: () {
+                      indexBody = 0;
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
                     leadWidget: const WidgetImage(
                       path: 'images/list.png',
                     ),
                     title: titles[0],
-                    subTitle: 'List Officer In my Response'),
-                    Divider(color: MyConstant.dark,),
+                    subTitle: 'List Job In my Response'),
+                Divider(
+                  color: MyConstant.dark,
+                ),
                 WidgetListtile(
+                    tapFunc: () {
+                      indexBody = 1;
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
+                    leadWidget: const WidgetImage(
+                      path: 'images/logo.png',
+                    ),
+                    title: titles[1],
+                    subTitle: 'List officer of Company'),
+                Divider(
+                  color: MyConstant.dark,
+                ),
+
+                 WidgetListtile(
+                    tapFunc: () {
+                      indexBody = 2;
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
                     leadWidget: const WidgetImage(
                       path: 'images/news.png',
                     ),
-                    title: titles[1],
-                    subTitle: 'Show News of Company'),
-                     Divider(color: MyConstant.dark,),
+                    title: titles[2],
+                    subTitle: 'News of Company'),
+                Divider(
+                  color: MyConstant.dark,
+                ),
+                
               ],
             ),
           ],
