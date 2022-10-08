@@ -28,7 +28,7 @@ class MyConstant {
   BoxDecoration gradientBox() {
     return BoxDecoration(
       gradient: RadialGradient(
-        radius: 1.0,
+        radius: 1.5,
         center: Alignment.topLeft,
         colors: [Colors.white, primary],
       ),

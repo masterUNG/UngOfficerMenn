@@ -10,7 +10,7 @@ class WidgetSingOut extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: [
+      children: [ Divider(color: MyConstant.dark,),
         WidgetListtile(
           leadWidget: Icon(
             Icons.exit_to_app,

@@ -1,16 +1,92 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:ungofficer/bodys/list_officer.dart';
+import 'package:ungofficer/bodys/news.dart';
+import 'package:ungofficer/utility/my_constant.dart';
+import 'package:ungofficer/utility/my_service.dart';
+import 'package:ungofficer/widgets/widget_drawer_header.dart';
+import 'package:ungofficer/widgets/widget_image.dart';
+import 'package:ungofficer/widgets/widget_listtile.dart';
+import 'package:ungofficer/widgets/widget_progress.dart';
 import 'package:ungofficer/widgets/widget_sign_out.dart';
 import 'package:ungofficer/widgets/widget_text.dart';
 
-class MainBoss extends StatelessWidget {
+class MainBoss extends StatefulWidget {
   const MainBoss({super.key});
+
+  @override
+  State<MainBoss> createState() => _MainBossState();
+}
+
+class _MainBossState extends State<MainBoss> {
+  var bodys = <Widget>[];
+  var titles = <String>[
+    'List Officer',
+    'News',
+  ];
+  int indexBody = 0;
+
+  var datas = <String>[];
+
+  @override
+  void initState() {
+    super.initState();
+
+    findUserLogin();
+  }
+
+  Future<void> findUserLogin() async {
+    datas = await MyService().findDatas();
+
+    bodys.add(const ListOfficer());
+    bodys.add(News(nameLogin: datas[2]));
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: WidgetText(text: 'Boss'),
-      ),drawer: Drawer(child: WidgetSingOut(),),
+        centerTitle: true,
+        title: WidgetText(
+          text: titles[indexBody],
+          textStyle: MyConstant().h2Style(),
+        ),
+      ),
+      drawer: Drawer(
+        child: Stack(
+          children: [
+            const WidgetSingOut(),
+            Column(
+              children: [
+                WidgetDrawerHeader(
+                  datas: datas,
+                  type: 'Boss',
+                ),
+                WidgetListtile(
+                    leadWidget: const WidgetImage(
+                      path: 'images/list.png',
+                    ),
+                    title: titles[0],
+                    subTitle: 'List Officer In my Response'),
+                    Divider(color: MyConstant.dark,),
+                WidgetListtile(
+                    leadWidget: const WidgetImage(
+                      path: 'images/news.png',
+                    ),
+                    title: titles[1],
+                    subTitle: 'Show News of Company'),
+                     Divider(color: MyConstant.dark,),
+              ],
+            ),
+          ],
+        ),
+      ),
+      body: SafeArea(
+          child: bodys.isEmpty ? const WidgetProgress() : bodys[indexBody]),
     );
   }
 }
