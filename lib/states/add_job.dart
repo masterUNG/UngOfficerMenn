@@ -1,5 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ungofficer/utility/my_constant.dart';
 import 'package:ungofficer/utility/my_service.dart';
 import 'package:ungofficer/widgets/widget_form.dart';
@@ -17,9 +20,14 @@ class _AddJobState extends State<AddJob> {
   Position? position;
   bool load = true;
 
+  Map<MarkerId, Marker> markerMap = {};
+  BitmapDescriptor? bitmapDescriptor;
+
   @override
   void initState() {
     super.initState();
+
+    createIconMarker();
 
     Future.delayed(Duration.zero, (() {
       findPosition(context: context);
@@ -38,7 +46,7 @@ class _AddJobState extends State<AddJob> {
         ),
       ),
       body: LayoutBuilder(builder: (context, BoxConstraints boxConstraints) {
-        return ListView(
+        return Column(
           children: [
             makeCenter(boxConstraints,
                 widget: WidgetForm(
@@ -57,9 +65,37 @@ class _AddJobState extends State<AddJob> {
               widget: Container(
                 height: boxConstraints.maxHeight * 0.6,
                 decoration: MyConstant().curveBox(),
-                child:  Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: load ? const WidgetProgress() : WidgetText(text: 'Position = ${position.toString()}') ,
+                  child: load
+                      ? const WidgetProgress()
+                      : GoogleMap(
+                          myLocationEnabled: true,
+                          initialCameraPosition: CameraPosition(
+                            target:
+                                LatLng(position!.latitude, position!.longitude),
+                            zoom: 16,
+                          ),
+                          onMapCreated: (controller) {},
+                          onTap: (argument) {
+                            print(
+                                'tab ${argument.latitude}, ${argument.longitude}');
+
+                            MarkerId markerId = const MarkerId('id');
+                            Marker marker = Marker(
+                              markerId: markerId,
+                              position: argument,
+                              infoWindow: const InfoWindow(
+                                  title: 'Job Position',
+                                  snippet: 'Work From Here'),
+                                  icon: bitmapDescriptor ?? BitmapDescriptor.defaultMarkerWithHue(60),
+                              // icon: BitmapDescriptor.defaultMarkerWithHue(60),
+                            );
+                            markerMap[markerId] = marker;
+                            setState(() {});
+                          },
+                          markers: Set<Marker>.of(markerMap.values),
+                        ),
                 ),
               ),
               width: boxConstraints.maxWidth * 0.8,
@@ -90,6 +126,14 @@ class _AddJobState extends State<AddJob> {
       print('position on addJob ==> $position');
       load = false;
       setState(() {});
+    });
+  }
+
+  void createIconMarker() {
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(72, 72)), 'images/factory.png')
+        .then((value) {
+      bitmapDescriptor = value;
     });
   }
 }
