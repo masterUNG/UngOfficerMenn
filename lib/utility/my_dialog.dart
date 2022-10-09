@@ -13,6 +13,7 @@ class MyDialog {
   void normalDialog({
     required String title,
     required String subTitle,
+    Widget? textButtonWidget,
   }) {
     showDialog(
       context: context,
@@ -25,16 +26,16 @@ class MyDialog {
             title: title,
             subTitle: subTitle),
         actions: [
-          WidgetTextButton(
-            label: 'OK',
-            pressFunc: () {
-              Navigator.pop(context);
-            },
-          )
+          textButtonWidget ??
+              WidgetTextButton(
+                label: 'OK',
+                pressFunc: () {
+                  Navigator.pop(context);
+                },
+              ),
         ],
       ),
       barrierDismissible: false,
-      
     );
   }
 }

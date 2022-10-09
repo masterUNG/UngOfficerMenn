@@ -13,6 +13,12 @@ class MyConstant {
   static Color active = const Color.fromARGB(255, 196, 6, 69);
 
   //Method
+  BoxDecoration curveBox() {
+    return BoxDecoration(
+      border: Border.all(color: MyConstant.dark),
+      borderRadius: BorderRadius.circular(10),
+    );
+  }
 
   BoxDecoration imageBox() {
     return const BoxDecoration(
@@ -38,7 +44,7 @@ class MyConstant {
   BoxDecoration whiteBox() {
     return BoxDecoration(
         color: Colors.white.withOpacity(0.75),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(100),
           topRight: Radius.circular(100),
         ));
