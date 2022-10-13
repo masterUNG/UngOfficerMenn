@@ -77,10 +77,10 @@ class MyConstant {
     );
   }
 
-  TextStyle h3ActiveStyle() {
+  TextStyle h3ActiveStyle({Color? color}) {
     return TextStyle(
       fontSize: 16,
-      color: active,
+      color: color ?? active,
       fontWeight: FontWeight.w500,
       fontFamily: 'Mali',
     );
