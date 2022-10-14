@@ -151,7 +151,7 @@ class _ListJobState extends State<ListJob> {
           width: 250,
           child: WidgetText(text: jobModel.detail),
         ),
-        Container(
+        Container(margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(4),
           decoration: MyConstant().curveBox(),
           width: 300,
