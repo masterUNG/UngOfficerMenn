@@ -12,6 +12,16 @@ import 'package:ungofficer/utility/my_dialog.dart';
 import 'package:ungofficer/widgets/windget_text_button.dart';
 
 class MyService {
+  String? changeDateFormat({required String dateStr}) {
+    String? result;
+
+    var strings = dateStr.split(' ');
+    var string2s = strings[0].trim().split('-');
+    result = '${string2s[2]}/${string2s[1]}/${string2s[0]}';
+
+    return result;
+  }
+
   Future<JobModel?> findJobWherId({required String idJob}) async {
     JobModel? jobModel;
     String path =

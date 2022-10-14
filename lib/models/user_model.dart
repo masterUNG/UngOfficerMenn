@@ -8,6 +8,7 @@ class UserModel {
   final String user;
   final String password;
   final String? idJob;
+  final String? finish;
   UserModel({
     required this.id,
     required this.type,
@@ -15,6 +16,7 @@ class UserModel {
     required this.user,
     required this.password,
     this.idJob,
+    this.finish,
   });
 
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class UserModel {
       'user': user,
       'password': password,
       'idJob': idJob,
+      'finish': finish,
     };
   }
 
@@ -36,6 +39,7 @@ class UserModel {
       user: (map['user'] ?? '') as String,
       password: (map['password'] ?? '') as String,
       idJob: map['idJob'] != null ? map['idJob'] as String : '',
+      finish: map['finish'] != null ? map['finish'] as String : '',
     );
   }
 
