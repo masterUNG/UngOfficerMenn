@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,23 @@ import 'package:ungofficer/utility/my_dialog.dart';
 import 'package:ungofficer/widgets/windget_text_button.dart';
 
 class MyService {
+
+  double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
+    double distance = 0;
+
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lng2 - lng1) * p)) / 2;
+    distance = 12742 * asin(sqrt(a)) * 1000;
+
+    return distance;
+  }
+
+
+
+
   String? changeDateFormat({required String dateStr}) {
     String? result;
 

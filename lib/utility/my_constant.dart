@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class MyConstant {
   //Field
 
+  static double workDistance = 350;
+
   static String routeAuthen = '/authen';
   static String routeOfficer = '/officer';
   static String routeBoss = '/boss';
