@@ -13,6 +13,27 @@ import 'package:ungofficer/utility/my_dialog.dart';
 import 'package:ungofficer/widgets/windget_text_button.dart';
 
 class MyService {
+  List<String> changeStringToList({required String string}) {
+    var strings = <String>[];
+
+    print('start strings ==> $strings');
+
+    String result = string.substring(1, string.length - 1);
+
+    print('result ==> $result');
+
+    strings = result.split(',');
+
+    
+
+    for (var i = 0; i < strings.length; i++) {
+      strings[i] = strings[i].trim();
+    }
+
+    print('strings return ==> $strings');
+
+    return strings;
+  }
 
   double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
     double distance = 0;
@@ -26,9 +47,6 @@ class MyService {
 
     return distance;
   }
-
-
-
 
   String? changeDateFormat({required String dateStr}) {
     String? result;
