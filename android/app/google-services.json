@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "655091192775",
+    "project_id": "ungofficermenn",
+    "storage_bucket": "ungofficermenn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655091192775:android:9ee8774cfaed48a2b4ffe2",
+        "android_client_info": {
+          "package_name": "com.flutterthailand.ungofficer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655091192775-il4ir5aqu7c4gt92gf7tcgem4gnvnv1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvGXmO69g3HsrZjc2hTBacaGtQZD8Uebs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655091192775-il4ir5aqu7c4gt92gf7tcgem4gnvnv1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

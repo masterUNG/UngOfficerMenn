@@ -3,6 +3,7 @@ import 'package:ungofficer/bodys/my_job.dart';
 import 'package:ungofficer/utility/my_constant.dart';
 import 'package:ungofficer/utility/my_service.dart';
 import 'package:ungofficer/widgets/widget_drawer_header.dart';
+import 'package:ungofficer/widgets/widget_icon_button.dart';
 import 'package:ungofficer/widgets/widget_listtile.dart';
 import 'package:ungofficer/widgets/widget_sign_out.dart';
 import 'package:ungofficer/widgets/widget_text.dart';
@@ -32,8 +33,17 @@ class _MainOfficerState extends State<MainOfficer> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        actions: [
+          WidgetIconButton(
+            iconData: Icons.qr_code,
+            pressFunc: () {},
+          )
+        ],
         centerTitle: true,
-        title: WidgetText(text: titleAppBars[indexBody], textStyle: MyConstant().h2Style(),),
+        title: WidgetText(
+          text: titleAppBars[indexBody],
+          textStyle: MyConstant().h2Style(),
+        ),
       ),
       drawer: Drawer(
         child: Stack(
@@ -58,7 +68,9 @@ class _MainOfficerState extends State<MainOfficer> {
                           Navigator.pop(context);
                         },
                       ),
-                      Divider(color: MyConstant.dark,),
+                      Divider(
+                        color: MyConstant.dark,
+                      ),
                     ],
                   ),
           ],
@@ -71,7 +83,12 @@ class _MainOfficerState extends State<MainOfficer> {
   Future<void> findDatas() async {
     await MyService().findDatas().then((value) {
       datas = value;
+      aboutNoti();
       setState(() {});
     });
+  }
+
+  Future<void> aboutNoti() async {
+    await MyService().processNotification(context: context, idUser: datas[0]);
   }
 }

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,41 @@ import 'package:ungofficer/utility/my_dialog.dart';
 import 'package:ungofficer/widgets/windget_text_button.dart';
 
 class MyService {
+  Future<void> processSendNoti(
+      {required String title,
+      required String body,
+      required String token}) async {
+    String apiNoti = 'https://www.androidthai.in.th/fluttertraining/apiNotiUng.php?isAdd=true&token=$token&title=$title&body=$body';
+    await Dio().get(apiNoti).then((value) => print('Send Noti Success'));
+  }
+
+  Future<void> processNotification(
+      {required BuildContext context, required String idUser}) async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
+    print('token ===> $token');
+
+    String apiUpdateToken =
+        'https://www.androidthai.in.th/fluttertraining/editUserWhereIdTokenUng.php?isAdd=true&id=$idUser&token=$token';
+    await Dio()
+        .get(apiUpdateToken)
+        .then((value) => print('Update Token Success'));
+
+    //Open App
+    FirebaseMessaging.onMessage.listen((event) {
+      String? title = event.notification!.title;
+      String? body = event.notification!.body;
+      MyDialog(context: context).normalDialog(title: title!, subTitle: body!);
+    });
+
+    //Close App
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      String? title = event.notification!.title;
+      String? body = event.notification!.body;
+      MyDialog(context: context).normalDialog(title: title!, subTitle: body!);
+    });
+  }
+
   List<String> changeStringToList({required String string}) {
     var strings = <String>[];
 
@@ -23,8 +59,6 @@ class MyService {
     print('result ==> $result');
 
     strings = result.split(',');
-
-    
 
     for (var i = 0; i < strings.length; i++) {
       strings[i] = strings[i].trim();

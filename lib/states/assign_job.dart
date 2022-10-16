@@ -9,6 +9,7 @@ import 'package:ungofficer/models/job_model.dart';
 import 'package:ungofficer/models/user_model.dart';
 import 'package:ungofficer/utility/my_constant.dart';
 import 'package:ungofficer/utility/my_dialog.dart';
+import 'package:ungofficer/utility/my_service.dart';
 import 'package:ungofficer/widgets/widget_button.dart';
 import 'package:ungofficer/widgets/widget_progress.dart';
 import 'package:ungofficer/widgets/widget_text.dart';
@@ -230,9 +231,19 @@ class _AssignJobState extends State<AssignJob> {
     await Dio().get(path).then((value) async {
       String pathEditUser =
           'https://www.androidthai.in.th/fluttertraining/editUserWhereIdUng.php?isAdd=true&id=${assignUserModel!.id}&idJob=${jobModel!.id}';
-      await Dio().get(pathEditUser).then((value) {
+      await Dio().get(pathEditUser).then((value) async {
         // Wait noti
-        Navigator.pop(context);
+
+        await MyService()
+            .processSendNoti(
+                title: 'Require Job',
+                body: jobModel!.detail,
+                token: assignUserModel!.token!)
+            .then((value) {
+           Navigator.pop(context);
+        });
+
+       
       });
     });
   }

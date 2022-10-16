@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class MyConstant {
   //Field
 
-  static String domainImage = 'https://www.androidthai.in.th/fluttertraining/ung/';
+  static String domainImage =
+      'https://www.androidthai.in.th/fluttertraining/ung/';
 
-  static double workDistance = 350;
+  static double workDistance = 100;
 
   static String routeAuthen = '/authen';
   static String routeOfficer = '/officer';
   static String routeBoss = '/boss';
+  static String routeWeb = '/web';
 
   static String appName = 'Ung Officer';
   static Color dark = const Color.fromARGB(255, 3, 26, 68);

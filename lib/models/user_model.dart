@@ -9,6 +9,7 @@ class UserModel {
   final String password;
   final String? idJob;
   final String? finish;
+  final String? token;
   UserModel({
     required this.id,
     required this.type,
@@ -17,6 +18,7 @@ class UserModel {
     required this.password,
     this.idJob,
     this.finish,
+    this.token,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +30,7 @@ class UserModel {
       'password': password,
       'idJob': idJob,
       'finish': finish,
+      'token': token,
     };
   }
 
@@ -40,6 +43,7 @@ class UserModel {
       password: (map['password'] ?? '') as String,
       idJob: map['idJob'] != null ? map['idJob'] as String : '',
       finish: map['finish'] != null ? map['finish'] as String : '',
+      token: map['token'] != null ? map['token'] as String : '',
     );
   }
 
