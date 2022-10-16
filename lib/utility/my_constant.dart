@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class MyConstant {
   //Field
 
+  static String domainImage = 'https://www.androidthai.in.th/fluttertraining/ung/';
+
   static double workDistance = 350;
 
   static String routeAuthen = '/authen';
