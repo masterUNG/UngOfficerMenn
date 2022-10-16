@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qrscan/qrscan.dart';
 import 'package:ungofficer/bodys/my_job.dart';
 import 'package:ungofficer/utility/my_constant.dart';
+import 'package:ungofficer/utility/my_dialog.dart';
 import 'package:ungofficer/utility/my_service.dart';
 import 'package:ungofficer/widgets/widget_drawer_header.dart';
 import 'package:ungofficer/widgets/widget_icon_button.dart';
@@ -36,7 +38,11 @@ class _MainOfficerState extends State<MainOfficer> {
         actions: [
           WidgetIconButton(
             iconData: Icons.qr_code,
-            pressFunc: () {},
+            pressFunc: () async {
+              var result = await scan();
+              MyDialog(context: context)
+                  .normalDialog(title: 'QRcode', subTitle: result.toString());
+            },
           )
         ],
         centerTitle: true,
